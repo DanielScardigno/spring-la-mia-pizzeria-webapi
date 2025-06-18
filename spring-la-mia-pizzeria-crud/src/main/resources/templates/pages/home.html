@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(Home)}">
+</head>
+
+<body class="bg-dark">
+    <header>
+        <nav th:replace="~{fragments/navBar :: navBar}"></nav>
+    </header>
+
+    <main>
+        <div class="controller text-center mt-5 text-light">
+            <h1>Benvenuto!</h1>
+            <h2 class="mt-5 mb-3">Scopri Le Nostre Pizze!</h2>
+
+            <button th:replace="~{fragments/bottone :: bottone('Vai alle pizze', @{/pizze})}"></button>
+        </div>
+    </main>
+</body>
+
+</html>

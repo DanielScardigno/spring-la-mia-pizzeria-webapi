@@ -1,5 +1,7 @@
 package org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model;
 
+import java.util.Locale;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -57,5 +59,9 @@ public class Pizza {
 
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
+	}
+
+	public String getPrezzoUmano() {
+		return String.format(Locale.ITALY, "%,.2f€", this.getPrezzo());
 	}
 }

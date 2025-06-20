@@ -13,7 +13,7 @@
         <div class="container">
             <h1 class="mt-5 text-light text-center">Le nostre pizze</h1>
 
-            <form th:action="@{/pizze}" method="GET" class="col-3 ms-auto mt-5">
+            <form th:action="@{/pizze}" method="GET" class="col-3 mt-5 mb-2">
                 <div class="input-group">
                     <input type="search" name="keyword" id="pizza-search-input" class="form-control" th:value="${keyword}">
                     <button class="btn btn-light" type="submit">Cerca</button>

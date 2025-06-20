@@ -14,7 +14,7 @@
             <h1>Benvenuto!</h1>
             <h2 class="mt-5 mb-3">Scopri Le Nostre Pizze!</h2>
 
-            <button th:replace="~{fragments/bottone :: bottone('Vai alle pizze', @{/pizze})}"></button>
+            <a class="btn btn-lg btn-light" th:href="@{/pizze}">Vai alle pizze</a>
         </div>
     </main>
 

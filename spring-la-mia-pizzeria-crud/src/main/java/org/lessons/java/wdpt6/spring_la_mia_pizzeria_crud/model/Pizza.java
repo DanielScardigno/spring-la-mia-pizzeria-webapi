@@ -6,20 +6,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "pizzas")
+@Table(name = "pizze")
 public class Pizza {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+	@NotNull
     private String nome;
+
+	@Lob
     private String descrizione;
-    private String foto;
+
+	@Lob
+    private String fotoUrl;
+
+	@NotNull
     private double prezzo;
+
+	// Getter e Setter
 
 	public Integer getId() {
 		return this.id;
@@ -45,12 +56,12 @@ public class Pizza {
 		this.descrizione = descrizione;
 	}
 
-	public String getFoto() {
-		return this.foto;
+	public String getFotoUrl() {
+		return this.fotoUrl;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFotoUrl(String foto) {
+		this.fotoUrl = foto;
 	}
 
 	public double getPrezzo() {
@@ -61,7 +72,9 @@ public class Pizza {
 		this.prezzo = prezzo;
 	}
 
-	public String getPrezzoUmano() {
+	// Metodi
+
+	public String getPrezzoEuro() {
 		return String.format(Locale.ITALY, "%,.2f€", this.getPrezzo());
 	}
 }

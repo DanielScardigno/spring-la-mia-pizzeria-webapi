@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="~{fragments/head :: head('Le nostre pizze')}">
+<head th:replace="~{fragments/head :: head('Lista delle pizze')}">
 </head>
 
 <body class="bg-dark">
@@ -11,14 +11,21 @@
 
     <main>
         <div class="container">
-            <h1 class="mt-5 text-light text-center">Le nostre pizze</h1>
+            <h1 class="mt-5 text-light text-center">Lista delle pizze</h1>
 
-            <form th:action="@{/pizze}" method="GET" class="col-3 mt-5 mb-2">
-                <div class="input-group">
-                    <input type="search" name="keyword" id="pizza-search-input" class="form-control" th:value="${keyword}">
-                    <button class="btn btn-light" type="submit">Cerca</button>
+            <div class="row justify-content-between">
+                <div class="col-2 mt-5 mb-2">
+                    <a th:href="@{/pizze/create}" class="btn btn-light fw-medium">Aggiungi</a>
                 </div>
-            </form>
+
+                <form th:action="@{/pizze}" method="GET" class="col-3 mt-5 mb-2">
+                    <div class="input-group">
+                        <input type="search" name="keyword" id="pizza-search-input" class="form-control"
+                            th:value="${keyword}">
+                        <button class="btn btn-light fw-medium" type="submit">Cerca</button>
+                    </div>
+                </form>
+            </div>
 
             <table th:if="${pizze.size() > 0}" class="table table-dark table-hover">
                 <thead>
@@ -35,8 +42,8 @@
                         <td>[[*{nome}]]</td>
                         <td>[[*{Descrizione}]]</td>
                         <td>[[*{PrezzoEuro}]]</td>
-                        <td>
-                            <a th:href="@{|/pizze/*{id}}" class="btn btn-sm btn-light">Vedi dettagli</a>
+                        <td class="d-flex justify-content-end">
+                            <a th:href="@{|/pizze/*{id}}" class="btn btn-sm btn-light fw-medium">Vedi dettagli</a>
                         </td>
                     </tr>
                 </tbody>

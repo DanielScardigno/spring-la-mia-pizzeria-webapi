@@ -8,7 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "pizze")
@@ -18,16 +19,18 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-	@NotNull
+	@NotBlank(message = "Il nome deve avere almeno un carattere")
     private String nome;
 
 	@Lob
+	@NotBlank(message = "La descrizione deve avere almeno un carattere")
     private String descrizione;
 
 	@Lob
+	@NotBlank(message = "Aggiungere un'immagine")
     private String fotoUrl;
 
-	@NotNull
+	@Min(value = 0, message = "Il prezzo non può essere inferiore a 0")
     private double prezzo;
 
 	// Getter e Setter

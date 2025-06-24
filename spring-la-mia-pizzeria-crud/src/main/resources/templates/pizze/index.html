@@ -11,22 +11,26 @@
 
     <main>
         <div class="container">
+            <!-- Titolo -->
             <h1 class="mt-5 text-light text-center">Lista delle pizze</h1>
 
             <div class="row justify-content-between">
-                <div class="col-2 mt-5 mb-2">
+                <!-- Aggiungi Pizza -->
+                <div class="col-9 mb-2 mt-5">
                     <a th:href="@{/pizze/create}" class="btn btn-light fw-medium">Aggiungi</a>
                 </div>
 
+                <!-- Cerca Pizza -->
                 <form th:action="@{/pizze}" method="GET" class="col-3 mt-5 mb-2">
                     <div class="input-group">
                         <input type="search" name="keyword" id="pizza-search-input" class="form-control"
                             th:value="${keyword}">
-                        <button class="btn btn-light fw-medium" type="submit">Cerca</button>
+                        <button class="btn btn-light fw-medium" type="submit"><i class="bi bi-search"></i></button>
                     </div>
                 </form>
             </div>
 
+            <!-- Tabella Pizze -->
             <table th:if="${pizze.size() > 0}" class="table table-dark table-hover">
                 <thead>
                     <tr>
@@ -42,13 +46,23 @@
                         <td>[[*{nome}]]</td>
                         <td>[[*{Descrizione}]]</td>
                         <td>[[*{PrezzoEuro}]]</td>
-                        <td class="d-flex justify-content-end">
-                            <a th:href="@{|/pizze/*{id}}" class="btn btn-sm btn-light fw-medium">Vedi dettagli</a>
+                        <td class="d-flex justify-content-end gap-2 fw-medium">
+                            <!-- Dettagli Pizza -->
+                            <a th:href="@{|/pizze/*{id}|}" class="btn btn-sm btn-light"><i class="bi bi-eye-fill"></i></a>
+
+                            <!-- Modifica Pizza -->
+                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+
+                            <!-- Elimina Pizza -->
+                            <form th:action="@{|/pizze/*{id}/delete|}" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
+            <!-- Testo alternativo pizze mancanti -->
             <div th:unless="${pizze.size() > 0}" class="mt-5 text-danger text-center">
                 <h2>Oops, non ci sono pizze</h2>
                 <h2>>:(</h2>

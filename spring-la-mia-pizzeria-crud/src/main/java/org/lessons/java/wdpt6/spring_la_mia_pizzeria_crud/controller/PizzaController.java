@@ -47,19 +47,43 @@ public class PizzaController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("nuovaPizza", new Pizza());
+        model.addAttribute("pizza", new Pizza());
 
         return "pizze/create";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("nuovaPizza") Pizza nuovPizza, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         
         if (bindingResult.hasErrors()) {
             return "/pizze/create";
         }
         
-        pizzaRepository.save(nuovPizza);
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizze";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable Integer id) {
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+
+        return "pizze/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        
+        if (bindingResult.hasErrors()) {
+            return "/pizze/edit";
+        }
+        
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizze";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Integer id) {
+        pizzaRepository.deleteById(id);
         return "redirect:/pizze";
     }
 }

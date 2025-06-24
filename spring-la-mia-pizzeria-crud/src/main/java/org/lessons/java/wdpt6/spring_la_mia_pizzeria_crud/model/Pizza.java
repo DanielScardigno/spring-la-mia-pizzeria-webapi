@@ -10,6 +10,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pizze")
@@ -30,7 +31,8 @@ public class Pizza {
 	@NotBlank(message = "Aggiungere un'immagine")
     private String fotoUrl;
 
-	@Min(value = 0, message = "Il prezzo non può essere inferiore a 0")
+	@NotNull(message = "Aggiungere il prezzo")
+	@Min(value = 0, message = "Il prezzo non può essere inferiore a 0€")
     private double prezzo;
 
 	// Getter e Setter

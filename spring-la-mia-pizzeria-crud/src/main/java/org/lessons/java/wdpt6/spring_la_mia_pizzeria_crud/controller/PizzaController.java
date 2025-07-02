@@ -3,11 +3,11 @@ package org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Offerta;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,7 +78,7 @@ public class PizzaController {
         if (pizzaOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non ci sono pizze con Id: " + id);
 
         model.addAttribute("pizza", pizzaRepository.findById(id).get());
-        return "pizze/edit";
+        return "/pizze/edit";
     }
 
     @PostMapping("/{id}/edit")
@@ -96,5 +96,20 @@ public class PizzaController {
     public String delete(@PathVariable Integer id) {
         pizzaRepository.deleteById(id);
         return "redirect:/pizze";
+    }
+
+    @GetMapping("/{id}/aggiungi-offerta")
+    public String addOfferta(@PathVariable Integer id, Model model) {
+
+        Optional<Pizza> pizzaOptional = pizzaRepository.findById(id);
+        if (pizzaOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non ci sono pizze con Id: " + id);
+
+        model.addAttribute("pizza", pizzaOptional.get());
+
+        Offerta nuovaOfferta = new Offerta();
+        nuovaOfferta.setPizza(pizzaOptional.get());
+
+        model.addAttribute("offerta", nuovaOfferta);
+        return "offerte/create";
     }
 }

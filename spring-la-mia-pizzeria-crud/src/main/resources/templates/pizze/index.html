@@ -37,15 +37,15 @@
                         <th>Nome</th>
                         <th>Descrizione</th>
                         <th>Prezzo</th>
-                        <th></th>
+                        <th class="d-flex justify-content-end">Azioni</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr th:each="pizza : ${pizze}" th:object="${pizza}">
                         <td>[[*{nome}]]</td>
-                        <td>[[*{Descrizione}]]</td>
-                        <td>[[*{PrezzoEuro}]]</td>
+                        <td>[[*{descrizione}]]</td>
+                        <td>[[*{prezzoEuro}]]</td>
                         <td class="d-flex justify-content-end gap-2 fw-medium">
                             <!-- Dettagli Pizza -->
                             <a th:href="@{|/pizze/*{id}|}" class="btn btn-sm btn-light"><i

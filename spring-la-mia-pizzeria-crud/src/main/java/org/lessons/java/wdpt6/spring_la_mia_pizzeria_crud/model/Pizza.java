@@ -1,5 +1,6 @@
 package org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model;
 
+import java.util.List;
 import java.util.Locale;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +36,9 @@ public class Pizza {
 	@NotNull(message = "Aggiungere il prezzo")
 	@Min(value = 0, message = "Il prezzo non può essere inferiore a 0€")
     private double prezzo;
+
+	@OneToMany(mappedBy = "pizza")
+	private List<Offerta> offerte;
 
 	// Getter e Setter
 
@@ -75,6 +80,14 @@ public class Pizza {
 
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
+	}
+
+	public List<Offerta> getOfferte() {
+		return this.offerte;
+	}
+
+	public void setOfferte(List<Offerta> offerte) {
+		this.offerte = offerte;
 	}
 
 	// Metodi

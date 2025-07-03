@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Offerta;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.OffertaRepository;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
 
+    @Autowired
+    private OffertaRepository offertaRepository;
+    
     @GetMapping
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
         List<Pizza> pizze;
@@ -94,7 +98,14 @@ public class PizzaController {
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Integer id) {
-        pizzaRepository.deleteById(id);
+
+        Pizza pizzaDaEliminare = pizzaRepository.findById(id).get();
+
+        for (Offerta offerta : pizzaDaEliminare.getOfferte()) {
+            offertaRepository.delete(offerta);
+        }
+
+        pizzaRepository.delete(pizzaDaEliminare);
         return "redirect:/pizze";
     }
 

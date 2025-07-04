@@ -1,10 +1,13 @@
 package org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -25,6 +28,9 @@ public class Ingrediente {
 
     @Lob
     private String descrizione;
+
+    @ManyToMany(mappedBy = "ingredienti")
+    private List<Pizza> pizze;
 
     // Getter e Setter
 
@@ -58,5 +64,13 @@ public class Ingrediente {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public List<Pizza> getPizze() {
+        return this.pizze;
+    }
+
+    public void setPizze(List<Pizza> pizze) {
+        this.pizze = pizze;
     }
 }

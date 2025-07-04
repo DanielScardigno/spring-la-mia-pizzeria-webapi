@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Offerta;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.IngredienteRepository;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.OffertaRepository;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class PizzaController {
 
     @Autowired
     private OffertaRepository offertaRepository;
+
+    @Autowired
+    private IngredienteRepository ingredienteRepository;
     
     @GetMapping
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
@@ -60,6 +64,7 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
 
         return "pizze/create";
     }
@@ -67,6 +72,8 @@ public class PizzaController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+
         if (bindingResult.hasErrors()) {
             return "/pizze/create";
         }
@@ -82,12 +89,15 @@ public class PizzaController {
         if (pizzaOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non ci sono pizze con Id: " + id);
 
         model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
         return "/pizze/edit";
     }
 
     @PostMapping("/{id}/edit")
     public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+
         if (bindingResult.hasErrors()) {
             return "/pizze/edit";
         }

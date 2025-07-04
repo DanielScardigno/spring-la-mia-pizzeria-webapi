@@ -10,11 +10,11 @@
 
 <body class="bg-dark text-light">
     <main>
-        <div class="container fs-3 col-md-6 col-12s">
+        <div class="container col-md-6 col-12s">
             <h1 class="mt-5 text-light text-center">Modifica <i class="text-warning">[[${pizza.nome}]]</i></h1>
 
             <form th:action="@{|/pizze/${pizza.id}/edit|}" method="POST" th:object="${pizza}">
-                <label class="form-label mt-5" for="nome">Nome</label>
+                <label class="form-label mt-5 fs-3" for="nome">Nome</label>
                 <input type="text" class="form-control" th:field="*{nome}" id="nome" required th:errorClass="is-invalid">
                 <!-- Error -->
                 <div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback fs-5">
@@ -23,7 +23,14 @@
                     </ul>
                 </div>
 
-                <label class="form-label mt-5" for="descrizione">Descrizione</label>
+                <label class="mt-5 fs-3">Ingredienti</label>
+
+                <div class="mt-4" th:each="ingrediente : ${ingredienti}">
+                    <input type="checkbox" class="form-check-input" th:field="*{ingredienti}" th:value="${ingrediente.id}" id="'ingrediente-' + ${ingrediente.id}">
+                    <label class="form-check-label" for="">[[${ingrediente.nome}]]</label>
+                </div>
+
+                <label class="form-label mt-5 fs-3" for="descrizione">Descrizione</label>
                 <textarea class="form-control" id="descrizione" rows="4" th:field="*{descrizione}" required th:errorClass="is-invalid"></textarea>
                 <div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback fs-5">
                     <ul>
@@ -31,7 +38,7 @@
                     </ul>
                 </div>
 
-                <label class="form-label mt-5" for="fotoUrl">Foto URL</label>
+                <label class="form-label mt-5 fs-3" for="fotoUrl">Foto URL</label>
                 <input type="text" class="form-control" id="fotoUrl" th:field="*{fotoUrl}" required th:errorClass="is-invalid">
                 <div th:if="${#fields.hasErrors('fotoUrl')}" class="invalid-feedback fs-5">
                     <ul>
@@ -39,7 +46,7 @@
                     </ul>
                 </div>
 
-                <label class="form-label mt-5" for="prezzo">Prezzo</label>
+                <label class="form-label mt-5 fs-3" for="prezzo">Prezzo</label>
                 <input type="number" class="form-control" id="prezzo" th:field="*{prezzo}" step=".01" required th:errorClass="is-invalid">
                 <div th:if="${#fields.hasErrors('prezzo')}" class="invalid-feedback fs-5">
                     <ul>
@@ -48,7 +55,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between my-5">
-                    <a th:href="@{/pizze}" class="btn btn-danger">Annulla</a>
+                    <a href="javascript:history.back()" class="btn btn-danger">Annulla</a>
                     <button type="submit" class="btn btn-success">Aggiorna pizza</button>
                 </div>
             </form>

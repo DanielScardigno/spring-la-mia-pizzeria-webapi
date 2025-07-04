@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Ingrediente;
+import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.wdpt6.spring_la_mia_pizzeria_crud.repository.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -96,8 +97,10 @@ public class IngredienteController {
     public String delete(@PathVariable Integer id, Model model) {
 
         Ingrediente ingredienteDaEliminare = ingredienteRepository.findById(id).get();
-
-        ingredienteRepository.delete(ingredienteDaEliminare);
+        for (Pizza pizzaCollegata : ingredienteDaEliminare.getPizze()) {
+            pizzaCollegata.getIngredienti().remove(ingredienteDaEliminare);
+        }
+        ingredienteRepository.deleteById(id);
         return "redirect:/ingredienti";
     }
 }

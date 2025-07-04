@@ -4,11 +4,12 @@
 <head th:replace="~{fragments/head :: head('Dettagli pizza')}">
 </head>
 
-<header>
-    <nav th:replace="~{fragments/navBar :: navBar}"></nav>
-</header>
 
 <body class="bg-dark">
+    <header>
+        <nav th:replace="~{fragments/navBar :: navBar}"></nav>
+    </header>
+
     <main>
         <section>
             <div class="container d-flex justify-content-center mt-5">
@@ -17,7 +18,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">[[*{nome}]]</h5>
-                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary"><i
+                                    class="bi bi-pencil"></i></a>
                         </div>
 
                         <h6 class="mt-4">Ingredienti:</h6>
@@ -35,84 +37,85 @@
             </div>
         </section>
 
-        <section class="row justify-content-center mt-5">
-            <div class="col-6">
+        <section>
+            <div class="d-flex justify-content-center mt-5">
+                <div class="col-6">
+                    <div class="d-flex justify-content-center gap-2">
+                        <a class="btn btn-md btn-light mb-5" href="javascript:history.back()">Torna indietro</a>
+                        <a class="btn btn-md btn-success mb-5" th:href="@{|/pizze/*{id}/create|}">Aggiungi offerta</a>
+                    </div>
 
-                <div class="d-flex justify-content-center">
-                    <a class="btn btn-md btn-success mb-5" th:href="@{|/pizze/*{id}/create|}">Aggiungi offerta</a>
-                </div>
+                    <div th:if="${pizza.offerte.size() > 0}">
+                        <h2 class="text-success text-center mb-4">Offerte</h2>
+                        <table class="table table-dark table-hover mb-5">
 
-                <table th:if="${pizza.offerte.size() > 0}" class="table table-dark table-hover mb-5">
-                    <h2 class="text-success text-center mb-4">Offerte</h2>
+                            <thead>
+                                <tr>
+                                    <th>Titolo</th>
+                                    <th>Data di inizio</th>
+                                    <th>Data di fine</th>
+                                    <th>
+                                        <div class="d-flex justify-content-end">
+                                            Azioni
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
 
-                    <thead>
-                        <tr>
-                            <th>Titolo</th>
-                            <th>Data di inizio</th>
-                            <th>Data di fine</th>
-                            <th>
-                                <div class="d-flex justify-content-end">
-                                    Azioni
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
+                            <tbody>
+                                <tr th:each="offerta : ${pizza.offerte}" th:object="${offerta}">
+                                    <td>[[*{titolo}]]</td>
+                                    <td>[[*{dataDiInizio}]]</td>
+                                    <td>[[*{dataDiFine}]]</td>
+                                    <td>
+                                        <div class="d-flex justify-content-end gap-2 fw-medium">
+                                            <!-- Modifica Offerta -->
+                                            <a th:href="@{|/offerte/${offerta.id}/edit|}"
+                                                class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
 
-                    <tbody>
-                        <tr th:each="offerta : ${pizza.offerte}" th:object="${offerta}">
-                            <td>[[*{titolo}]]</td>
-                            <td>[[*{dataDiInizio}]]</td>
-                            <td>[[*{dataDiFine}]]</td>
-                            <td>
-                                <div class="d-flex justify-content-end gap-2 fw-medium">
-                                    <!-- Modifica Offerta -->
-                                    <a th:href="@{|/offerte/${offerta.id}/edit|}" class="btn btn-sm btn-primary"><i
-                                            class="bi bi-pencil"></i></a>
+                                            <!-- Elimina Offerta -->
 
-                                    <!-- Elimina Offerta -->
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                th:data-bs-target="'#delete-modal-' + *{id}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
 
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        th:data-bs-target="'#delete-modal-' + *{id}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-backdrop="static"
-                                        data-bs-theme="dark" data-bs-keyboard="false" tabindex="-1"
-                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title text-danger fs-5" id="staticBackdropLabel">
-                                                        Elimina offerta</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Sei sicuro di voler eliminare l'offerta "[[*{titolo}]]"?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light"
-                                                        data-bs-dismiss="modal">Annulla</button>
-                                                    <form th:action="@{|/offerte/*{id}/delete|}" method="post">
-                                                        <button type="submit"
-                                                            class="btn btn-danger">Elimina</i></button>
-                                                    </form>
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:id="'delete-modal-' + *{id}"
+                                                data-bs-backdrop="static" data-bs-theme="dark" data-bs-keyboard="false"
+                                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title text-danger fs-5"
+                                                                id="staticBackdropLabel">
+                                                                Elimina offerta</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Sei sicuro di voler eliminare l'offerta "[[*{titolo}]]"?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light"
+                                                                data-bs-dismiss="modal">Annulla</button>
+                                                            <form th:action="@{|/offerte/*{id}/delete|}" method="post">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Elimina</i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <section class="d-flex justify-content-center">
-            <a class="btn btn-lg btn-light mb-5" href="javascript:history.back()">Torna indietro</a>
         </section>
 
         <script th:replace="~{fragments/popper :: popper}"></script>

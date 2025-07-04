@@ -13,7 +13,14 @@
         <div class="controller text-center mt-5 text-light">
             <h1>Benvenuto!</h1>
 
-            <a class="btn btn-lg btn-light mt-3 fw-medium" th:href="@{/pizze}">Vai alle pizze</a>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <a class="btn btn-lg btn-light mt-3 fw-medium" th:href="@{/pizze}">Vai alle pizze</a>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <a class="btn btn-lg btn-light mt-3 fw-medium" th:href="@{/ingredienti}">Vai agli inigredienti</a>
+                </div>
+            </div>
         </div>
     </main>
 

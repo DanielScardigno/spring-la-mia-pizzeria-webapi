@@ -109,7 +109,7 @@ public class PizzaController {
         return "redirect:/pizze";
     }
 
-    @GetMapping("/{id}/aggiungi-offerta")
+    @GetMapping("/{id}/create")
     public String addOfferta(@PathVariable Integer id, Model model) {
 
         Optional<Pizza> pizzaOptional = pizzaRepository.findById(id);

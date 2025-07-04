@@ -11,8 +11,7 @@
 <body class="bg-dark text-light">
     <main>
         <div class="container fs-3 col-md-6 col-12s">
-            <h1 class="mt-5 text-light text-center">Modifica offerta:</h1>
-            <h1 class="mt-3 text-success text-center">[[${offerta.titolo}]]</h1>
+            <h1 class="mt-5 text-light text-center">Modifica <i class="text-warning">[[${offerta.titolo}]]</i></h1>
 
             <form th:action="@{|/offerte/${offerta.id}/edit|}" method="POST" th:object="${offerta}">
                 <input type="hidden" th:field="${offerta.pizza}">

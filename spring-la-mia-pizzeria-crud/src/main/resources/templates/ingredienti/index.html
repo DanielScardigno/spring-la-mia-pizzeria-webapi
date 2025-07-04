@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="~{fragments/head :: head('Lista delle pizze')}">
+<head th:replace="~{fragments/head :: head('Lista degli ingredienti')}">
 </head>
 
 <body class="bg-dark">
@@ -12,50 +12,48 @@
     <main>
         <div class="container">
             <!-- Titolo -->
-            <h1 class="mt-5 text-light text-center">Lista delle pizze</h1>
+            <h1 class="mt-5 text-light text-center">Lista degli ingredienti</h1>
 
             <div class="row justify-content-between">
-                <!-- Aggiungi Pizza -->
+                <!-- Aggiungi Ingrediente -->
                 <div class="col-9 mb-2 mt-5">
-                    <a th:href="@{/pizze/create}" class="btn btn-light fw-medium">Aggiungi</a>
+                    <a th:href="@{/ingredienti/create}" class="btn btn-light fw-medium">Aggiungi</a>
                 </div>
 
-                <!-- Cerca Pizza -->
-                <form th:action="@{/pizze}" method="GET" class="col-3 mt-5 mb-2">
+                <!-- Cerca Ingrediente -->
+                <form th:action="@{/ingredienti}" method="GET" class="col-3 mt-5 mb-2">
                     <div class="input-group">
-                        <input type="search" name="keyword" id="pizza-search-input" class="form-control"
+                        <input type="search" name="keyword" id="ingrediente-search-input" class="form-control"
                             th:value="${keyword}">
                         <button class="btn btn-light fw-medium" type="submit"><i class="bi bi-search"></i></button>
                     </div>
                 </form>
             </div>
 
-            <!-- Tabella Pizze -->
-            <table th:if="${pizze.size() > 0}" class="table table-dark table-hover mb-5">
+            <!-- Tabella Ingredienti -->
+            <table th:if="${ingredienti.size() > 0}" class="table table-dark table-hover mb-5">
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Descrizione</th>
-                        <th>Prezzo</th>
                         <th class="d-flex justify-content-end">Azioni</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="pizza : ${pizze}" th:object="${pizza}">
+                    <tr th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}">
                         <td>[[*{nome}]]</td>
                         <td>[[*{descrizione}]]</td>
-                        <td>[[*{prezzoEuro}]]</td>
                         <td class="d-flex justify-content-end gap-2 fw-medium">
-                            <!-- Dettagli Pizza -->
-                            <a th:href="@{|/pizze/*{id}|}" class="btn btn-sm btn-light"><i
+                            <!-- Dettagli Ingrediente -->
+                            <a th:href="@{|/ingredienti/*{id}|}" class="btn btn-sm btn-light"><i
                                     class="bi bi-eye-fill"></i></a>
 
-                            <!-- Modifica Pizza -->
-                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary"><i
+                            <!-- Modifica Ingrediente -->
+                            <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary"><i
                                     class="bi bi-pencil"></i></a>
 
-                            <!-- Elimina Pizza -->
+                            <!-- Elimina Ingrediente -->
 
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
@@ -70,17 +68,17 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title text-danger fs-5" id="staticBackdropLabel">Elimina pizza</h1>
+                                            <h1 class="modal-title text-danger fs-5" id="staticBackdropLabel">Elimina Ingrediente</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            Sei sicuro di voler eliminare la pizza "[[*{nome}]]"?
+                                            Sei sicuro di voler eliminare l'ingrediente "[[*{nome}]]"?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light"
                                                 data-bs-dismiss="modal">Annulla</button>
-                                            <form th:action="@{|/pizze/*{id}/delete|}" method="post">
+                                            <form th:action="@{|/ingredienti/*{id}/delete|}" method="post">
                                                 <button type="submit" class="btn btn-danger">Elimina</i></button>
                                             </form>
                                         </div>
@@ -93,8 +91,8 @@
             </table>
 
             <!-- Testo alternativo pizze mancanti -->
-            <div th:unless="${pizze.size() > 0}" class="mt-5 text-danger text-center">
-                <h2>Oops, non ci sono pizze</h2>
+            <div th:unless="${ingredienti.size() > 0}" class="mt-5 text-danger text-center">
+                <h2>Oops, non ci sono ingredienti   </h2>
                 <h2>>:(</h2>
             </div>
         </div>

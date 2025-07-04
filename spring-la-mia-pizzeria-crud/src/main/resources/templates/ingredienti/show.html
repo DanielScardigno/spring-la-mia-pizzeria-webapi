@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Dettagli dell ingrediente')}">
+</head>
+
+<header>
+    <nav th:replace="~{fragments/navBar :: navBar}"></nav>
+</header>
+
+<body class="bg-dark">
+    <main>
+        <section>
+            <div class="container d-flex justify-content-center mt-5">
+                <div class="card text-bg-dark border-light col-4" th:object="${ingrediente}">
+                    <img th:src="*{fotoUrl}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">[[*{nome}]]</h5>
+                        <p class="card-text">[[*{descrizione}]]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="d-flex justify-content-center">
+            <a class="btn btn-lg btn-light my-5" th:href="@{/ingredienti}">Torna indietro</a>
+        </section>
+
+        <script th:replace="~{fragments/popper :: popper}"></script>
+    </main>
+</body>
+
+</html>

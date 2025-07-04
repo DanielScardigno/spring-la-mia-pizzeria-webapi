@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="~{fragments/head :: head('Lista degli ingredienti')}">
+<head th:replace="~{fragments/head :: head('Lista ingredienti')}">
 </head>
 
 <body class="bg-dark">
@@ -36,7 +36,11 @@
                     <tr>
                         <th>Nome</th>
                         <th>Descrizione</th>
-                        <th class="d-flex justify-content-end">Azioni</th>
+                        <th>
+                            <div class="d-flex justify-content-end">
+                                Azioni
+                            </div>
+                        </th>
                     </tr>
                 </thead>
 
@@ -44,43 +48,46 @@
                     <tr th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}">
                         <td>[[*{nome}]]</td>
                         <td>[[*{descrizione}]]</td>
-                        <td class="d-flex justify-content-end gap-2 fw-medium">
-                            <!-- Dettagli Ingrediente -->
-                            <a th:href="@{|/ingredienti/*{id}|}" class="btn btn-sm btn-light"><i
-                                    class="bi bi-eye-fill"></i></a>
+                        <td>
+                            <div class="d-flex justify-content-end gap-2 fw-medium">
+                                <!-- Dettagli Ingrediente -->
+                                <a th:href="@{|/ingredienti/*{id}|}" class="btn btn-sm btn-light"><i
+                                        class="bi bi-eye-fill"></i></a>
 
-                            <!-- Modifica Ingrediente -->
-                            <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary"><i
-                                    class="bi bi-pencil"></i></a>
+                                <!-- Modifica Ingrediente -->
+                                <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary"><i
+                                        class="bi bi-pencil"></i></a>
 
-                            <!-- Elimina Ingrediente -->
+                                <!-- Elimina Ingrediente -->
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                th:data-bs-target="'#delete-modal-' + *{id}">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                    th:data-bs-target="'#delete-modal-' + *{id}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-backdrop="static"
-                                data-bs-theme="dark" data-bs-keyboard="false" tabindex="-1"
-                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title text-danger fs-5" id="staticBackdropLabel">Elimina Ingrediente</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Sei sicuro di voler eliminare l'ingrediente "[[*{nome}]]"?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light"
-                                                data-bs-dismiss="modal">Annulla</button>
-                                            <form th:action="@{|/ingredienti/*{id}/delete|}" method="post">
-                                                <button type="submit" class="btn btn-danger">Elimina</i></button>
-                                            </form>
+                                <!-- Modal -->
+                                <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-backdrop="static"
+                                    data-bs-theme="dark" data-bs-keyboard="false" tabindex="-1"
+                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title text-danger fs-5" id="staticBackdropLabel">
+                                                    Elimina Ingrediente</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sei sicuro di voler eliminare l'ingrediente "[[*{nome}]]"?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light"
+                                                    data-bs-dismiss="modal">Annulla</button>
+                                                <form th:action="@{|/ingredienti/*{id}/delete|}" method="post">
+                                                    <button type="submit" class="btn btn-danger">Elimina</i></button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +99,7 @@
 
             <!-- Testo alternativo pizze mancanti -->
             <div th:unless="${ingredienti.size() > 0}" class="mt-5 text-danger text-center">
-                <h2>Oops, non ci sono ingredienti   </h2>
+                <h2>Oops, non ci sono ingredienti </h2>
                 <h2>>:(</h2>
             </div>
         </div>

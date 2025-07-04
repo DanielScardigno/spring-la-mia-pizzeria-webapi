@@ -15,7 +15,11 @@
                 <div class="card text-bg-dark border-light col-4" th:object="${ingrediente}">
                     <img th:src="*{fotoUrl}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">[[*{nome}]]</h5>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">[[*{nome}]]</h5>
+                            <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                        </div>
+                        <h6 class="mt-4">Descrizione:</h6>
                         <p class="card-text">[[*{descrizione}]]</p>
                     </div>
                 </div>

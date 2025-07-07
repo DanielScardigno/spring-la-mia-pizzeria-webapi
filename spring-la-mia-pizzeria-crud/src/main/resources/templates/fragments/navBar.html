@@ -18,5 +18,10 @@
                 </li>
             </ul>
         </div>
+        <div class="d-flex justify-content-end gap-3 text-light me-5">
+            <span>Utente: <span sec:authentication="name"></span></span>
+            <span>Ruoli: <span sec:authentication="principal.authorities"></span></span>
+            <a th:href="@{/logout}" class="btn btn-danger btn-sm">Esci</a>
+        </div>
     </nav>
 </th:block>

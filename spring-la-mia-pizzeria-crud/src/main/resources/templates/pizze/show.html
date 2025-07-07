@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">[[*{nome}]]</h5>
-                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary"><i
+                            <a th:href="@{|/pizze/*{id}/edit|}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ADMIN')"><i
                                     class="bi bi-pencil"></i></a>
                         </div>
 
@@ -42,7 +42,7 @@
                 <div class="col-6">
                     <div class="d-flex justify-content-center gap-2">
                         <a class="btn btn-md btn-light mb-5" href="javascript:history.back()">Torna indietro</a>
-                        <a class="btn btn-md btn-success mb-5" th:href="@{|/pizze/*{id}/create|}">Aggiungi offerta</a>
+                        <a class="btn btn-md btn-success mb-5" th:href="@{|/pizze/*{id}/create|}" sec:authorize="hasAuthority('ADMIN')">Aggiungi offerta</a>
                     </div>
 
                     <div th:if="${pizza.offerte.size() > 0}">
@@ -71,20 +71,20 @@
                                         <div class="d-flex justify-content-end gap-2 fw-medium">
                                             <!-- Modifica Offerta -->
                                             <a th:href="@{|/offerte/${offerta.id}/edit|}"
-                                                class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                                                class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ADMIN')"><i class="bi bi-pencil"></i></a>
 
                                             <!-- Elimina Offerta -->
 
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                th:data-bs-target="'#delete-modal-' + *{id}">
+                                                th:data-bs-target="'#delete-modal-' + *{id}" sec:authorize="hasAuthority('ADMIN')">
                                                 <i class="bi bi-trash"></i>
                                             </button>
 
                                             <!-- Modal -->
                                             <div class="modal fade" th:id="'delete-modal-' + *{id}"
                                                 data-bs-backdrop="static" data-bs-theme="dark" data-bs-keyboard="false"
-                                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" sec:authorize="hasAuthority('ADMIN')">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">

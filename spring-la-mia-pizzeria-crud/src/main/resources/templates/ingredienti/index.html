@@ -16,12 +16,12 @@
 
             <div class="row justify-content-between">
                 <!-- Aggiungi Ingrediente -->
-                <div class="col-9 mb-2 mt-5">
+                <div class="col-9 mb-2 mt-5" sec:authorize="hasAuthority('ADMIN')">
                     <a th:href="@{/ingredienti/create}" class="btn btn-light fw-medium">Aggiungi</a>
                 </div>
 
                 <!-- Cerca Ingrediente -->
-                <form th:action="@{/ingredienti}" method="GET" class="col-3 mt-5 mb-2">
+                <form th:action="@{/ingredienti}" method="GET" class="col-3 mt-5 mb-2 ms-auto">
                     <div class="input-group">
                         <input type="search" name="keyword" id="ingrediente-search-input" class="form-control"
                             th:value="${keyword}">
@@ -55,21 +55,21 @@
                                         class="bi bi-eye-fill"></i></a>
 
                                 <!-- Modifica Ingrediente -->
-                                <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary"><i
+                                <a th:href="@{|/ingredienti/*{id}/edit|}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ADMIN')"><i
                                         class="bi bi-pencil"></i></a>
 
                                 <!-- Elimina Ingrediente -->
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    th:data-bs-target="'#delete-modal-' + *{id}">
+                                    th:data-bs-target="'#delete-modal-' + *{id}" sec:authorize="hasAuthority('ADMIN')">
                                     <i class="bi bi-trash"></i>
                                 </button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-backdrop="static"
                                     data-bs-theme="dark" data-bs-keyboard="false" tabindex="-1"
-                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    aria-labelledby="staticBackdropLabel" aria-hidden="true" sec:authorize="hasAuthority('ADMIN')">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">

@@ -21,7 +21,9 @@ public class securityConfiguration {
             .requestMatchers("/ingredienti/create", "/ingredienti/*/edit", "/ingredienti/*/delete").hasAuthority("ADMIN")
             .requestMatchers("/pizze", "/pizze/**", "/ingredienti", "/ingredienti/**").hasAuthority("USER")
             .requestMatchers("/**").permitAll())
-            .formLogin(Customizer.withDefaults());
+            .formLogin(Customizer.withDefaults())
+            .cors(cors -> cors.disable())
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
 
@@ -36,10 +38,8 @@ public class securityConfiguration {
     }
 
     @Bean
-    @SuppressWarnings("deprecation")
     DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailService());
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
